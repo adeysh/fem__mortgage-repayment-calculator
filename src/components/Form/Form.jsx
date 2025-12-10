@@ -27,26 +27,28 @@ const Form = () => {
                 inputId={"mortgageAmount"}
                 onChange={handleInputChange}
             />
-            <InputWrapper
-                label={"Mortgage Term"}
-                htmlFor={"mortgageTerm"}
-                unitWidth={"mortgageTermWidth"}
-                unitPosition={"right"}
-                inputId={"mortgageTerm"}
-                onChange={handleInputChange}
-            />
-            <InputWrapper
-                label={"Interest Rate"}
-                htmlFor={"interestRate"}
-                unitWidth={"interestRateWidth"}
-                unitPosition={"right"}
-                inputId={"interestRate"}
-                onChange={handleInputChange}
-            />
+            <div className="flex flex-col gap-6 lg:flex-row">
+                <InputWrapper
+                    label={"Mortgage Term"}
+                    htmlFor={"mortgageTerm"}
+                    unitWidth={"mortgageTermWidth"}
+                    unitPosition={"right"}
+                    inputId={"mortgageTerm"}
+                    onChange={handleInputChange}
+                />
+                <InputWrapper
+                    label={"Interest Rate"}
+                    htmlFor={"interestRate"}
+                    unitWidth={"interestRateWidth"}
+                    unitPosition={"right"}
+                    inputId={"interestRate"}
+                    onChange={handleInputChange}
+                />
+            </div>
 
             <MortgageTypeSelector />
 
-            <CalculateButton />
+            <CalculateButton values={formValues} />
         </form>
     );
 };

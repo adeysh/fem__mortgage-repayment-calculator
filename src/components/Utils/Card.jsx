@@ -1,9 +1,11 @@
 const Card = () => {
     return (
-        <div className="flex flex-col gap-4 rounded-lg border-t-4 border-lime bg-slate-950 p-4">
-            <div className="flex flex-col gap-2 border-b border-slate-700 pb-4">
+        <div className="flex flex-col gap-4 rounded-lg border-t-4 border-lime bg-slate-950 p-4 lg:gap-8 lg:p-8">
+            <div className="flex flex-col gap-2 border-b-2 border-slate-700/35 pb-4 lg:pb-8">
                 <p className="text-slate-300">Your monthly repayments</p>
-                <p className="text-4xl font-bold text-lime">£1,797.74</p>
+                <p className="text-4xl font-bold text-lime lg:text-6xl">
+                    £1,797.74
+                </p>
             </div>
 
             <div className="flex flex-col gap-2">
