@@ -8,7 +8,6 @@ const InputWrapper = ({
     unitWidth,
     unitPosition,
     inputId,
-    onChange,
 }) => {
     return (
         <div className="flex flex-col gap-2">
@@ -17,7 +16,6 @@ const InputWrapper = ({
                 unitPosition={unitPosition}
                 unitWidth={unitWidth}
                 inputId={inputId}
-                onChange={onChange}
             />
             <ErrorMessage />
         </div>

@@ -1,19 +1,30 @@
 import ResultsEmptyState from "./ResultsEmptyState";
 import ResultsFilledState from "./ResultsFilledState";
+import { useMortgage } from "../../hooks/useMortgage";
 
 const ResultsPanel = () => {
-    const isEmpty = false;
+    const { results } = useMortgage();
+    const isEmpty = !results;
 
     return (
-        <div className="flex h-full flex-col">
-            {isEmpty ? (
+        <div className="relative flex h-full flex-col justify-center overflow-hidden">
+            {/* EMPTY STATE (always mounted) */}
+            <div
+                className={`transition-opacity duration-500 ${isEmpty ? "opacity-100" : "pointer-events-none opacity-0"} `}
+            >
                 <ResultsEmptyState />
-            ) : (
-                <ResultsFilledState
-                // monthlyPayment={results.monthlyPayment}
-                // totalPayment={results.totalPayment}
-                />
-            )}
+            </div>
+
+            {/* FILLED STATE (always mounted, but hidden initially) */}
+            <div
+                className={`absolute inset-0 transition-all duration-500 ${
+                    isEmpty
+                        ? "pointer-events-none translate-y-4 opacity-0"
+                        : "translate-y-0 opacity-100"
+                } `}
+            >
+                <ResultsFilledState />
+            </div>
         </div>
     );
 };
