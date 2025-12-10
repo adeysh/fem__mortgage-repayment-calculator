@@ -1,11 +1,12 @@
-const FormInput = ({ unitPosition, unitWidth, inputId }) => {
+const FormInput = ({ unitPosition, unitWidth, inputId, onChange }) => {
     return (
         <div className="relative">
             <input
                 type="number"
                 id={inputId}
                 name="mortgageAmount"
-                className="h-12 w-full rounded-md border border-slate-700 px-4 font-medium text-slate-900"
+                className={`h-12 w-full rounded-md border border-slate-700 font-bold text-slate-900 ${unitPosition === "left" ? "pr-4 pl-16" : "pr-20 pl-4"}`}
+                onChange={(e) => onChange(inputId, e.target.value)}
             />
             {/* unit */}
             <div
