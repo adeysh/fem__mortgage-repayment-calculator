@@ -11,13 +11,13 @@ const InputWrapper = ({
 }) => {
     return (
         <div className="flex flex-col gap-2">
-            <FormLabel label={label} htmlFor={htmlFor} />
+            <FormLabel label={label} htmlFor={htmlFor} required={true} />
             <FormInput
                 unitPosition={unitPosition}
                 unitWidth={unitWidth}
                 inputId={inputId}
             />
-            <ErrorMessage />
+            <ErrorMessage inputId={inputId} />
         </div>
     );
 };

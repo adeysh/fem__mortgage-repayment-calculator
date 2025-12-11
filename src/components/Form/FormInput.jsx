@@ -1,17 +1,22 @@
 import { useMortgage } from "../../hooks/useMortgage";
 
 const FormInput = ({ unitPosition, unitWidth, inputId }) => {
-    const { formValues, handleInputChange } = useMortgage();
+    const { formValues, handleInputChange, formatValue } = useMortgage();
 
     return (
         <div className="relative">
             <input
                 type="number"
+                inputMode="decimal"
                 id={inputId}
                 name="mortgageAmount"
                 value={formValues[inputId] || ""}
                 className={`peer no-spinners h-12 w-full cursor-pointer rounded-md border border-slate-700 font-bold text-slate-900 transition-colors duration-300 ease-in-out focus-visible:border-lime focus-visible:outline-none active:border-lime active:outline-none ${unitPosition === "left" ? "pr-4 pl-16" : "pr-20 pl-4"} caret-slate-900`}
                 onChange={(e) => handleInputChange(inputId, e.target.value)}
+                onBlur={(e) => formatValue(inputId, e.target.value)}
+                onKeyDown={(e) =>
+                    e.key === "Enter" && formatValue(inputId, e.target.value)
+                }
             />
             {/* unit */}
             <div
