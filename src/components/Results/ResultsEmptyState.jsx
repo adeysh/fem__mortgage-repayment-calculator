@@ -1,9 +1,10 @@
 const ResultsEmptyState = () => {
     return (
-        <div className="lg: flex h-full flex-col items-center justify-between gap-4 bg-slate-900 p-6 text-center lg:justify-center lg:rounded-bl-[100px]">
+        <div className="flex h-full flex-col items-center justify-between gap-4 bg-slate-900 p-6 text-center lg:justify-center lg:rounded-bl-[100px]">
             <img
                 src="/assets/images/illustration-empty.svg"
-                alt="Calculation"
+                alt="Empty calculation placeholder"
+                className="select-none"
             />
             <h2 className="text-2xl font-bold text-white">
                 Results shown here

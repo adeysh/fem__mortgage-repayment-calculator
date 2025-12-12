@@ -8,6 +8,8 @@ const FormHeader = () => {
             <h1 className="text-2xl font-bold text-slate-900">
                 Mortgage Calculator
             </h1>
+
+            {/* Clear all button */}
             <button
                 type="button"
                 onClick={clearAll}

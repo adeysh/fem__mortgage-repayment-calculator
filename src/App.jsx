@@ -3,9 +3,13 @@ import { MortgageProvider } from "./context/MortgageProvider";
 
 function App() {
     return (
-        <MortgageProvider>
-            <MortgageCalculator />
-        </MortgageProvider>
+        <>
+            {/* Global Cart context for the whole application */}
+            <MortgageProvider>
+                {/* Main page layout */}
+                <MortgageCalculator />
+            </MortgageProvider>
+        </>
     );
 }
 

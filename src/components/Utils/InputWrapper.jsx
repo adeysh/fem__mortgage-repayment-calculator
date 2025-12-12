@@ -1,22 +1,23 @@
 import FormInput from "../Form/FormInput";
 import ErrorMessage from "./ErrorMessage";
 import FormLabel from "../Form/FormLabel";
+import { getFieldConfig } from "../../config/getFieldConfig";
 
-const InputWrapper = ({
-    label = "",
-    htmlFor,
-    unitWidth,
-    unitPosition,
-    inputId,
-}) => {
+const InputWrapper = ({ inputId }) => {
+    const field = getFieldConfig(inputId);
+
     return (
         <div className="flex flex-col gap-2">
-            <FormLabel label={label} htmlFor={htmlFor} required={true} />
-            <FormInput
-                unitPosition={unitPosition}
-                unitWidth={unitWidth}
+            {/* Field label (connected to input via htmlFor) */}
+            <FormLabel
+                label={field.label}
                 inputId={inputId}
+                required={true} // Mark all fields as required
             />
+
+            <FormInput inputId={inputId} />
+
+            {/* Validation error message */}
             <ErrorMessage inputId={inputId} />
         </div>
     );

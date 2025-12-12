@@ -1,11 +1,12 @@
 import { useMortgage } from "../../hooks/useMortgage";
 
-const RadioButton = ({ label, htmlFor, id, value }) => {
+const RadioButton = ({ label, id, value }) => {
     const { mortgageType, setMortgageType } = useMortgage();
 
     return (
+        // label changes bg-color and border when input gets checked
         <label
-            htmlFor={htmlFor}
+            htmlFor={id}
             className="flex h-12 w-full cursor-pointer items-center gap-4 rounded-md border border-slate-700 px-4 font-bold text-slate-900 transition-all duration-300 ease-in-out hover:border-lime has-[input:checked]:border-lime has-[input:checked]:bg-lime/20"
         >
             <input

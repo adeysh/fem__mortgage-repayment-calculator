@@ -20,12 +20,12 @@
     /* Typography */
     --font-sans: "Plus Jakarta Sans", sans-serif;
 
-    /* clamp token for app container */
+    /* clamp token for app container max-width */
     --spacing-app: clamp(64rem, 80vw, 72rem);
 }
 
 /* Root container styles
-Keep layout centered on all screen sizes */
+Keep layout normal flow on all screen sizes */
 #root {
     display: flex;
     background-color: var(--color-slate-100);
@@ -42,6 +42,14 @@ Keep layout centered on all screen sizes */
 .no-spinners {
     -moz-appearance: textfield; /* For Firefox */
     appearance: textfield;
+}
+
+/* error message animations */
+.error-enter {
+    @apply max-h-10 translate-y-0 opacity-100;
+}
+.error-exit {
+    @apply max-h-0 -translate-y-1 opacity-0;
 }
 
 /* Centered layout on large screens */

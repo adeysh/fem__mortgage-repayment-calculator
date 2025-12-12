@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { MortgageContext } from "./MortgageContext";
+import { fieldRules } from "../config/fieldRules";
+import { mortgageCalculators } from "../utils/mortgageCalc";
 
 export const MortgageProvider = ({ children }) => {
-    // form state
+    // FORM STATE
     const [formValues, setFormValues] = useState({
         mortgageAmount: "",
         mortgageTerm: "",
@@ -12,15 +14,34 @@ export const MortgageProvider = ({ children }) => {
     const [mortgageType, setMortgageType] = useState("repayment");
     const [results, setResults] = useState(null);
 
-    // error state
+    // VALIDATION ERRORS
     const [errors, setErrors] = useState({
         mortgageAmount: "",
         mortgageTerm: "",
         interestRate: "",
     });
 
+    // fade/slide-in animation
     const [animateResults, setAnimateResults] = useState(false);
 
+    // INPUT HANDLING
+
+    // cleans the number
+    const sanitizeNumber = (value) => {
+        // Remove leading zeros properly but keep decimals valid
+        if (value === "") return "";
+        // Block scientific notation input entirely.
+        if (value.toLowerCase().includes("e")) return "";
+
+        // If the value starts with "0" and is not "0.xxx"
+        if (/^0+[0-9]/.test(value)) {
+            return value.replace(/^0+/, "");
+        }
+
+        return value;
+    };
+
+    // Updates form values and clears error for that field
     const handleInputChange = (inputId, value) => {
         const cleaned = sanitizeNumber(value);
 
@@ -35,39 +56,19 @@ export const MortgageProvider = ({ children }) => {
         }));
     };
 
+    // FORM SUBMISSION VALIDATION
     const validateForm = () => {
         const newErrors = {};
 
-        const { mortgageAmount, mortgageTerm, interestRate } = formValues;
+        for (const field in fieldRules) {
+            const value = formValues[field];
 
-        // Mortgage Amount
-        if (!mortgageAmount) {
-            newErrors.mortgageAmount = "Enter the mortgage amount";
-        } else if (mortgageAmount <= 0) {
-            newErrors.mortgageAmount = "Amount must be greater than 0";
-        } else if (mortgageAmount > 10000000) {
-            newErrors.mortgageAmount = "Amount cannot exceed 10 million";
-        }
-
-        // Mortgage Term
-        if (!mortgageTerm) {
-            newErrors.mortgageTerm = "Enter mortgage term";
-        } else if (mortgageTerm <= 0) {
-            newErrors.mortgageTerm = "Term must be greater than 0";
-        } else if (mortgageTerm > 40) {
-            newErrors.mortgageTerm = "Term cannot exceed 40 years";
-        } else if (!Number.isInteger(Number(mortgageTerm))) {
-            newErrors.mortgageTerm =
-                "Term must be a whole number (no decimals)";
-        }
-
-        // Interest Rate
-        if (!interestRate) {
-            newErrors.interestRate = "Enter the interest rate";
-        } else if (interestRate <= 0) {
-            newErrors.interestRate = "Interest rate must be greater than 0";
-        } else if (interestRate > 20) {
-            newErrors.interestRate = "Interest rate cannot exceed 20%";
+            for (const rule of fieldRules[field]) {
+                if (rule.check(value)) {
+                    newErrors[field] = rule.message;
+                    break; // stop on first failed rule
+                }
+            }
         }
 
         setErrors(newErrors);
@@ -75,6 +76,7 @@ export const MortgageProvider = ({ children }) => {
         return Object.keys(newErrors).length === 0;
     };
 
+    // CALCULATION
     const calculateMortgage = () => {
         if (!validateForm()) {
             setResults(null); // hide results if form invalid
@@ -84,32 +86,15 @@ export const MortgageProvider = ({ children }) => {
         setAnimateResults(false);
 
         setTimeout(() => {
-            const P = Number(formValues.mortgageAmount);
-            const years = Number(formValues.mortgageTerm);
-            const annualRate = Number(formValues.interestRate);
+            const calculator = mortgageCalculators[mortgageType];
 
-            const r = annualRate / 100 / 12;
-            const n = years * 12;
+            const { monthlyPayment, totalPayment } = calculator(formValues);
 
-            if (mortgageType === "repayment") {
-                const monthly = (P * r * (1 + r) ** n) / ((1 + r) ** n - 1);
-                const total = monthly * n;
-
-                setResults({
-                    monthlyPayment: monthly,
-                    totalPayment: total,
-                    type: "repayment",
-                });
-            } else {
-                const monthly = P * r;
-                const total = monthly * n + P;
-
-                setResults({
-                    monthlyPayment: monthly,
-                    totalPayment: total,
-                    type: "interest-only",
-                });
-            }
+            setResults({
+                monthlyPayment,
+                totalPayment,
+                type: mortgageType,
+            });
 
             setAnimateResults(true);
         }, 150);
@@ -128,20 +113,6 @@ export const MortgageProvider = ({ children }) => {
         }
     };
 
-    const sanitizeNumber = (value) => {
-        // Remove leading zeros properly but keep decimals valid
-        if (value === "") return "";
-        // Block scientific notation input entirely.
-        if (value.toLowerCase().includes("e")) return "";
-
-        // If the value starts with "0" and is not "0.xxx"
-        if (/^0+[0-9]/.test(value)) {
-            return value.replace(/^0+/, "");
-        }
-
-        return value;
-    };
-
     const clearAll = () => {
         setFormValues({
             mortgageAmount: "",
@@ -150,8 +121,8 @@ export const MortgageProvider = ({ children }) => {
         });
 
         setMortgageType("repayment");
-
         setResults(null);
+        setErrors({});
     };
 
     return (

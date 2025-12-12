@@ -3,15 +3,17 @@ import { useMortgage } from "../../hooks/useMortgage";
 const ErrorMessage = ({ inputId }) => {
     const { errors } = useMortgage();
 
+    const errorText = errors[inputId];
+
     return (
         <div
             className={`overflow-hidden text-sm text-red-500 transition-all duration-300 ${
-                errors[inputId]
-                    ? "max-h-10 translate-y-0 opacity-100"
-                    : "max-h-0 -translate-y-1 opacity-0"
+                errorText ? "error-enter" : "error-exit"
             } `}
+            aria-live="polite" // Screen readers announce validation changes
+            role={errorText ? "alert" : undefined} // Only announce when error exists
         >
-            {errors[inputId]}
+            {errorText}
         </div>
     );
 };
