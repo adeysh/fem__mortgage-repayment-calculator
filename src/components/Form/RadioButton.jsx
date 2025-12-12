@@ -5,12 +5,8 @@ const RadioButton = ({ label, id, value }) => {
 
     return (
         // label changes bg-color and border when input gets checked
-        <label
-            htmlFor={id}
-            className="flex h-12 w-full cursor-pointer items-center gap-4 rounded-md border border-slate-700 px-4 font-bold text-slate-900 transition-all duration-300 ease-in-out hover:border-lime has-[input:checked]:border-lime has-[input:checked]:bg-lime/20"
-        >
+        <label className="flex h-12 w-full cursor-pointer items-center gap-4 rounded-md border border-slate-700 px-4 font-bold text-slate-900 transition-all duration-300 ease-in-out hover:border-lime has-[input:checked]:border-lime has-[input:checked]:bg-lime/20">
             <input
-                type="radio"
                 id={id}
                 name="mortgageType"
                 value={value}
