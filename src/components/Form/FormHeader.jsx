@@ -4,7 +4,7 @@ const FormHeader = () => {
     const { clearAll } = useMortgage();
 
     return (
-        <div className="flex flex-col items-start gap-2 lg:flex-row lg:items-center lg:justify-between">
+        <header className="flex flex-col items-start gap-2 lg:flex-row lg:items-center lg:justify-between">
             <h1 className="text-2xl font-bold text-slate-900">
                 Mortgage Calculator
             </h1>
@@ -17,7 +17,7 @@ const FormHeader = () => {
             >
                 Clear All
             </button>
-        </div>
+        </header>
     );
 };
 
