@@ -1,5 +1,6 @@
 import MortgageCalculator from "./pages/MortgageCalculator";
 import { MortgageProvider } from "./context/MortgageProvider";
+import Footer from "./components/Footer";
 
 function App() {
     return (
@@ -9,6 +10,8 @@ function App() {
                 {/* Main page layout */}
                 <MortgageCalculator />
             </MortgageProvider>
+
+            <Footer />
         </>
     );
 }

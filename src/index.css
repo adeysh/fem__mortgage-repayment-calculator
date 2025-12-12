@@ -27,7 +27,10 @@
 /* Root container styles
 Keep layout normal flow on all screen sizes */
 #root {
+    position: relative;
     display: flex;
+    flex-direction: column;
+    align-items: center;
     background-color: var(--color-slate-100);
     min-height: 100vh;
 }
