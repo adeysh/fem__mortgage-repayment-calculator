@@ -12,6 +12,7 @@ const ErrorMessage = ({ inputId }) => {
             } `}
             aria-live="polite" // Screen readers announce validation changes
             role={errorText ? "alert" : undefined} // Only announce when error exists
+            id={`${inputId}-error`}
         >
             {errorText}
         </div>

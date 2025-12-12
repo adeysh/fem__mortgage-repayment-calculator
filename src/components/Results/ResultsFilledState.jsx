@@ -1,8 +1,27 @@
 import Card from "../Utils/Card";
+import { useEffect, useRef } from "react";
+import { useMortgage } from "../../hooks/useMortgage";
 
 const ResultsFilledState = () => {
+    const { animateResults } = useMortgage();
+    const resultsRef = useRef(null);
+
+    useEffect(() => {
+        if (animateResults && resultsRef.current) {
+            const timer = setTimeout(() => {
+                resultsRef.current.focus();
+            }, 500); // match your fade-in duration
+
+            return () => clearTimeout(timer);
+        }
+    }, [animateResults]);
+
     return (
-        <div className="flex h-full flex-col gap-6 bg-slate-900 lg:gap-10 lg:rounded-bl-[100px] lg:p-4">
+        <div
+            ref={resultsRef}
+            className="flex h-full flex-col gap-6 bg-slate-900 lg:gap-10 lg:rounded-bl-[100px] lg:p-4"
+            aria-live="polite"
+        >
             {/* HEADER TEXT (Title + Description) */}
             <div className="flex flex-col gap-6">
                 <h2 className="text-2xl font-bold text-slate-100">

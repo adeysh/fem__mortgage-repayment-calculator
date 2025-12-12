@@ -1,13 +1,28 @@
 import ResultsEmptyState from "./ResultsEmptyState";
 import ResultsFilledState from "./ResultsFilledState";
 import { useMortgage } from "../../hooks/useMortgage";
+import { useRef, useEffect } from "react";
 
 const ResultsPanel = () => {
     const { results } = useMortgage();
+    const panelRef = useRef(null);
     const isEmpty = !results;
 
+    // Scroll into view when results appear
+    useEffect(() => {
+        if (!isEmpty && panelRef.current) {
+            panelRef.current.scrollIntoView({
+                behavior: "smooth",
+                block: "start",
+            });
+        }
+    }, [isEmpty]);
+
     return (
-        <div className="relative flex h-full flex-col justify-center overflow-hidden">
+        <div
+            ref={panelRef}
+            className="relative flex h-full flex-col justify-center overflow-hidden"
+        >
             {/* EMPTY STATE (always mounted) */}
             <div
                 className={`transition-opacity duration-500 ${isEmpty ? "opacity-100" : "pointer-events-none opacity-0"} `}

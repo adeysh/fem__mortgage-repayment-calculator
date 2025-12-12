@@ -59,3 +59,11 @@ Keep layout normal flow on all screen sizes */
         justify-content: center;
     }
 }
+
+/* prefers reduce animations */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation: none !important;
+        transition: none !important;
+    }
+}

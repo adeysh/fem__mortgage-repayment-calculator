@@ -17,6 +17,8 @@ const RadioButton = ({ label, id, value }) => {
                 checked={mortgageType === value}
                 onChange={() => setMortgageType(value)}
                 className="peer relative h-3 w-3 appearance-none rounded-full border-0 outline-2 outline-offset-2 outline-slate-700 transition-all before:absolute before:inset-1 before:rounded-full before:bg-transparent before:content-[''] peer-checked:before:bg-lime checked:border-2 checked:border-lime checked:bg-lime checked:outline-offset-2 checked:outline-lime"
+                aria-checked={mortgageType === value}
+                role="radio"
             />
             {label}
         </label>

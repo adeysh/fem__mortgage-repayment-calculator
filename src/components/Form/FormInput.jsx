@@ -2,7 +2,8 @@ import { useMortgage } from "../../hooks/useMortgage";
 import { getFieldConfig } from "../../config/getFieldConfig";
 
 const FormInput = ({ inputId }) => {
-    const { formValues, handleInputChange, formatValue } = useMortgage();
+    const { formValues, handleInputChange, formatValue, errors } =
+        useMortgage();
 
     const field = getFieldConfig(inputId);
 
@@ -21,6 +22,8 @@ const FormInput = ({ inputId }) => {
                 onKeyDown={(e) =>
                     e.key === "Enter" && formatValue(inputId, e.target.value)
                 }
+                aria-invalid={!!errors[inputId]}
+                aria-describedby={`${inputId}-error`}
             />
 
             {/* Unit */}
